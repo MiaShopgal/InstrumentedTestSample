@@ -7,17 +7,13 @@ class SharedPreferenceManager(override val context: Context) : ISharePreferenceM
 
     private val sharedPreferenceKey = "USER_DATA"
 
-    var sharedPreference: SharedPreferences
-
-    init {
-        sharedPreference = context.getSharedPreferences(sharedPreferenceKey, Context.MODE_PRIVATE)
-    }
+    private var sharedPreference: SharedPreferences = context.getSharedPreferences(sharedPreferenceKey, Context.MODE_PRIVATE)
 
     override fun saveString(key: String, value: String){
-        sharedPreference.edit().putString(key, value).commit()
+        sharedPreference.edit().putString(key, value).apply()
     }
 
-    override fun getString(key: String): String {
+    override fun getString(key: String): String? {
         return sharedPreference.getString(key, "")
     }
 }
